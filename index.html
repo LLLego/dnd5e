@@ -6499,18 +6499,14 @@ function setBackground(value, overlayOpacity) {
     overlay.style.background = 'rgba(60,40,20,0)';
     state.bgValue = '';
     state.bgOverlay = 0;
-  } else {
+  } } else {
     bg.style.background = '';
-    // Use absolute path starting with /
-    var imgPath = value;
-    if(!value.startsWith('http') && !value.startsWith('/')) {
-      imgPath = '/' + value;
-    }
-    bg.style.backgroundImage = 'url(' + imgPath + ')';
+    var imgPath = value;                     // keep the path as given (relative)
+    bg.style.backgroundImage = 'url("' + imgPath + '")';  // quotes for safety
     overlay.style.background = 'rgba(60,40,20,' + op + ')';
     state.bgValue = value;
     state.bgOverlay = op;
-  }
+}
   
   // Update slider in settings if present
   const slider = document.getElementById('bg-overlay-slider');
