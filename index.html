@@ -6501,10 +6501,12 @@ function setBackground(value, overlayOpacity) {
     state.bgOverlay = 0;
   } else {
     bg.style.background = '';
-    // Use absolute path starting with /
+    // Use path with repository name for GitHub Pages
     var imgPath = value;
     if(!value.startsWith('http') && !value.startsWith('/')) {
-      imgPath = '/' + value;
+      imgPath = '/dnd5e/' + value;
+    } else if(value.startsWith('/') && !value.startsWith('/dnd5e/')) {
+      imgPath = '/dnd5e' + value;
     }
     bg.style.backgroundImage = 'url(' + imgPath + ')';
     overlay.style.background = 'rgba(60,40,20,' + op + ')';
