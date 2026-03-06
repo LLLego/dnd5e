@@ -6482,16 +6482,6 @@ async function init() {
 //  BACKGROUND SYSTEM
 // ══════════════════════════════════════════════════════════
 
-// Get base path for assets - works both locally and on GitHub Pages
-function getBasePath() {
-  var path = window.location.pathname;
-  var lastSlash = path.lastIndexOf('/');
-  if(lastSlash > 0) {
-    return path.substring(0, lastSlash + 1);
-  }
-  return '/';
-}
-
 function setBackground(value, overlayOpacity) {
   var bg = document.getElementById('bg-layer');
   var overlay = document.getElementById('bg-overlay');
@@ -6511,8 +6501,11 @@ function setBackground(value, overlayOpacity) {
     state.bgOverlay = 0;
   } else {
     bg.style.background = '';
-    var basePath = getBasePath();
-    var imgPath = value.startsWith('http') ? value : basePath + value;
+    // Use absolute path starting with /
+    var imgPath = value;
+    if(!value.startsWith('http') && !value.startsWith('/')) {
+      imgPath = '/' + value;
+    }
     bg.style.backgroundImage = 'url(' + imgPath + ')';
     overlay.style.background = 'rgba(60,40,20,' + op + ')';
     state.bgValue = value;
